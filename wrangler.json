@@ -3,10 +3,7 @@
   "main": "src/server/index.ts",
   "name": "durable-chat-template",
   "migrations": [
-    {
-      "new_sqlite_classes": ["Chat"],
-      "tag": "v1"
-    }
+    { "new_sqlite_classes": ["Chat"], "tag": "v1" }
   ],
   "assets": {
     "directory": "./public",
@@ -18,14 +15,9 @@
   },
   "durable_objects": {
     "bindings": [
-      {
-        "class_name": "Chat",
-        "name": "Chat"
-      }
+      { "class_name": "Chat", "name": "chat" }  
     ]
   },
-  "observability": {
-    "enabled": true
-  },
+  "observability": { "enabled": true },
   "upload_source_maps": true
 }
