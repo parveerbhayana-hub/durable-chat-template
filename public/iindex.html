@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>JOY — Multilingual Dictionary</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="JOY — 15 translations of the word “joy”, on a galaxy-themed page." />
+
+  <style>
+    :root{
+      --bg1:#090c1a;
+      --bg2:#141a3a;
+      --card:#151b2f;
+      --text:#eef1ff;
+      --muted:#9fb0d9;
+      --accent:#6ae3ff;
+      --accent2:#8b5cf6;
+      --border:rgba(170,180,210,.2);
+    }
+
+    /* Galaxy background */
+    html,body{height:100%;margin:0}
+    body{
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(139,92,246,.18), transparent),
+        radial-gradient(900px 500px at -10% 20%, rgba(106,227,255,.18), transparent),
+        linear-gradient(180deg,var(--bg2),var(--bg1));
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+      overflow-x:hidden;
+    }
+    .sky,
+    .sky::before,
+    .sky::after{
+      content:"";
+      position:fixed; inset:0; pointer-events:none;
+    }
+    /* star layers (white dots) */
+    .sky{
+      background-image:
+        radial-gradient(1px 1px at 8% 12%, #fff, transparent 55%),
+        radial-gradient(1.2px 1.2px at 28% 22%, #fff, transparent 55%),
+        radial-gradient(1px 1px at 42% 18%, #fff, transparent 55%),
+        radial-gradient(1.4px 1.4px at 65% 8%, #fff, transparent 55%),
+        radial-gradient(1px 1px at 84% 16%, #fff, transparent 55%),
+        radial-gradient(1px 1px at 12% 42%, #fff, transparent 55%),
+        radial-gradient(1.3px 1.3px at 32% 45%, #fff, transparent 55%),
+        radial-gradient(1px 1px at 55% 36%, #fff, transparent 55%),
+        radial-gradient(1.2px 1.2px at 76% 40%, #fff, transparent 55%),
+        radial-gradient(1px 1px at 92% 35%, #fff, transparent 55%),
+        radial-gradient(1px 1px at 18% 70%, #fff, transparent 55%),
+        radial-gradient(1.4px 1.4px at 38% 78%, #fff, transparent 55%),
+        radial-gradient(1px 1px at 60% 72%, #fff, transparent 55%),
+        radial-gradient(1.2px 1.2px at 81% 69%, #fff, transparent 55%),
+        radial-gradient(1px 1px at 6% 88%, #fff, transparent 55%),
+        radial-gradient(1.1px 1.1px at 28% 92%, #fff, transparent 55%),
+        radial-gradient(1px 1px at 50% 90%, #fff, transparent 55%),
+        radial-gradient(1.2px 1.2px at 72% 88%, #fff, transparent 55%),
+        radial-gradient(1px 1px at 90% 92%, #fff, transparent 55%);
+      opacity:.9;
+      animation: twinkle 6s linear infinite alternate;
+    }
+    .sky::before{
+      background-image:
+        radial-gradient(1px 1px at 15% 8%, #fff, transparent 55%),
+        radial-gradient(1.2px 1.2px at 36% 12%, #fff, transparent 55%),
+        radial-gradient(1px 1px at 58% 10%, #fff, transparent 55%),
+        radial-gradient(1.2px 1.2px at 78% 14%, #fff, transparent 55%),
+        radial-gradient(1px 1px at 95% 6%, #fff, transparent 55%),
+        radial-gradient(1px 1px at 10% 30%, #fff, transparent 55%),
+        radial-gradient(1.2px 1.2px at 30% 32%, #fff, transparent 55%),
+        radial-gradient(1px 1px at 52% 28%, #fff, transparent 55%),
+        radial-gradient(1.3px 1.3px at 74% 26%, #fff, transparent 55%),
+        radial-gradient(1px 1px at 90% 30%, #fff, transparent 55%),
+        radial-gradient(1px 1px at 8% 58%, #fff, transparent 55%),
+        radial-gradient(1.2px 1.2px at 28% 60%, #fff, transparent 55%),
+        radial-gradient(1px 1px at 50% 56%, #fff, transparent 55%),
+        radial-gradient(1.1px 1.1px at 70% 60%, #fff, transparent 55%),
+        radial-gradient(1px 1px at 90% 58%, #fff, transparent 55%),
+        radial-gradient(1px 1px at 12% 82%, #fff, transparent 55%),
+        radial-gradient(1.2px 1.2px at 34% 86%, #fff, transparent 55%),
+        radial-gradient(1px 1px at 56% 84%, #fff, transparent 55%),
+        radial-gradient(1.2px 1.2px at 78% 82%, #fff, transparent 55%),
+        radial-gradient(1px 1px at 96% 86%, #fff, transparent 55%);
+      opacity:.7;
+      animation: twinkle 8s linear infinite alternate-reverse;
+    }
+    .sky::after{
+      background-image:
+        radial-gradient(1.4px 1.4px at 22% 18%, #fff, transparent 55%),
+        radial-gradient(1.3px 1.3px at 44% 16%, #fff, transparent 55%),
+        radial-gradient(1.4px 1.4px at 66% 12%, #fff, transparent 55%),
+        radial-gradient(1.4px 1.4px at 86% 20%, #fff, transparent 55%),
+        radial-gradient(1.4px 1.4px at 14% 50%, #fff, transparent 55%),
+        radial-gradient(1.4px 1.4px at 36% 46%, #fff, transparent 55%),
+        radial-gradient(1.4px 1.4px at 58% 44%, #fff, transparent 55%),
+        radial-gradient(1.4px 1.4px at 80% 48%, #fff, transparent 55%),
+        radial-gradient(1.4px 1.4px at 18% 78%, #fff, transparent 55%),
+        radial-gradient(1.4px 1.4px at 40% 74%, #fff, transparent 55%),
+        radial-gradient(1.4px 1.4px at 62% 76%, #fff, transparent 55%),
+        radial-gradient(1.4px 1.4px at 84% 74%, #fff, transparent 55%);
+      opacity:.45;
+      animation: twinkle 10s linear infinite;
+    }
+    @keyframes twinkle { from{opacity:.6} to{opacity:1} }
+
+    /* Layout */
+    .wrap{max-width:1100px;margin:0 auto;padding:48px 20px;position:relative}
+    header{
+      display:flex;align-items:center;gap:14px;margin-bottom:28px
+    }
+    .logo{
+      width:42px;height:42px;border-radius:12px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      box-shadow:0 10px 30px rgba(106,227,255,.25), 0 8px 22px rgba(139,92,246,.25);
+      flex:none;
+    }
+    h1{font-size:28px;letter-spacing:.4px;margin:0}
+    .tag{color:var(--muted);margin:6px 0 0 0}
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      gap:14px;
+      margin-top:22px;
+    }
+    .card{
+      background:rgba(21,27,47,.7);
+      backdrop-filter: blur(6px);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:16px 18px;
+      box-shadow:0 10px 30px rgba(0,0,0,.35);
+      transition: transform .08s ease, box-shadow .12s ease;
+    }
+    .card:hover{ transform: translateY(-2px); box-shadow:0 16px 36px rgba(0,0,0,.45); }
+    .word{font-size:22px;margin:0 0 6px 0}
+    .lang{color:var(--muted);font-size:13px}
+    footer{margin-top:28px;color:var(--muted);font-size:12px}
+  </style>
+</head>
+<body>
+  <div class="sky" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <header>
+      <div class="logo" aria-hidden="true"></div>
+      <div>
+        <h1>JOY — Dictionary</h1>
+        <p class="tag">15 ways to say “joy” around the world</p>
+      </div>
+    </header>
+
+    <section class="grid" aria-label="Translations of joy">
+      <article class="card">
+        <h2 class="word">joie</h2>
+        <p class="lang">French</p>
+      </article>
+      <article class="card">
+        <h2 class="word">alegría</h2>
+        <p class="lang">Spanish</p>
+      </article>
+      <article class="card">
+        <h2 class="word">Freude</h2>
+        <p class="lang">German</p>
+      </article>
+      <article class="card">
+        <h2 class="word">gioia</h2>
+        <p class="lang">Italian</p>
+      </article>
+      <article class="card">
+        <h2 class="word">alegria</h2>
+        <p class="lang">Portuguese</p>
+      </article>
+      <article class="card">
+        <h2 class="word">радость</h2>
+        <p class="lang">Russian (radost’)</p>
+      </article>
+      <article class="card">
+        <h2 class="word">فرح</h2>
+        <p class="lang">Arabic (farah)</p>
+      </article>
+      <article class="card">
+        <h2 class="word">喜悦</h2>
+        <p class="lang">Chinese (xǐyuè)</p>
+      </article>
+      <article class="card">
+        <h2 class="word">喜び</h2>
+        <p class="lang">Japanese (yorokobi)</p>
+      </article>
+      <article class="card">
+        <h2 class="word">기쁨</h2>
+        <p class="lang">Korean (gippeum)</p>
+      </article>
+      <article class="card">
+        <h2 class="word">χαρά</h2>
+        <p class="lang">Greek (chará)</p>
+      </article>
+      <article class="card">
+        <h2 class="word">שמחה</h2>
+        <p class="lang">Hebrew (simcha)</p>
+      </article>
+      <article class="card">
+        <h2 class="word">sevinç</h2>
+        <p class="lang">Turkish</p>
+      </article>
+      <article class="card">
+        <h2 class="word">vreugde</h2>
+        <p class="lang">Dutch</p>
+      </article>
+      <article class="card">
+        <h2 class="word">आनंद</h2>
+        <p class="lang">Hindi (ānand)</p>
+      </article>
+    </section>
+
+    <footer>© <span id="y"></span> JOY</footer>
+  </div>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
