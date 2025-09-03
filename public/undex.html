@@ -1,254 +1,232 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Basic Page Needs -->
-    <meta charset="utf-8" />
-    <title>JOYHUB — Real-Time Chat</title>
-    <meta name="description" content="JOYHUB is a fast, real-time chat powered by Durable Objects." />
-    <meta name="author" content="JOYHUB" />
-
-    <!-- Mobile Specific Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <!-- Fonts (optional, remove if you don’t want external fonts) -->
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/normalize.css" />
-    <link rel="stylesheet" href="css/skeleton.css" />
-    <link rel="stylesheet" href="styles.css" />
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/ico" href="favicon.ico" />
-
-    <!-- Open Graph / Social -->
-    <meta property="og:title" content="JOYHUB — Real-Time Chat" />
-    <meta property="og:description" content="Global chat, low latency, zero fuss. Powered by Durable Objects." />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="/joyhub-social.png" />
-
-    <!-- App Script -->
-    <script src="/dist/index.js" type="module"></script>
-
-    <style>
-      :root {
-        --jh-bg: #0b1020;
-        --jh-card: #151b2f;
-        --jh-accent: #6ae3ff;
-        --jh-accent-2: #8b5cf6;
-        --jh-text: #e8ecff;
-        --jh-muted: #aab2d6;
-      }
-      html, body {
-        height: 100%;
-        background: radial-gradient(1200px 600px at 80% -10%, rgba(107, 99, 255, 0.15), transparent),
-                    radial-gradient(900px 500px at -10% 20%, rgba(106, 227, 255, 0.15), transparent),
-                    var(--jh-bg);
-        color: var(--jh-text);
-        font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      }
-      .container { width: 95%; height: 100%; }
-      .row { height: 100%; align-items: center; }
-      .brand {
-        display: inline-flex; align-items: center; gap: 10px; user-select: none;
-      }
-      .logo {
-        width: 36px; height: 36px; border-radius: 10px;
-        background: linear-gradient(135deg, var(--jh-accent), var(--jh-accent-2));
-        box-shadow: 0 8px 30px rgba(106, 227, 255, 0.25), 0 6px 20px rgba(139, 92, 246, 0.25);
-      }
-      h1, h4 { margin: 0; }
-      h1 { font-weight: 800; letter-spacing: 0.2px; }
-      .tagline { color: var(--jh-muted); margin-top: 8px; }
-      .card {
-        background: rgba(21, 27, 47, 0.7);
-        backdrop-filter: blur(6px);
-        border: 1px solid rgba(138, 144, 171, 0.18);
-        border-radius: 14px;
-        padding: 18px 20px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-      }
-      .pill {
-        display: inline-block;
-        border-radius: 999px;
-        padding: 6px 12px;
-        font-size: 12px;
-        font-weight: 600;
-        letter-spacing: 0.3px;
-        color: #07121f;
-        background: linear-gradient(135deg, var(--jh-accent), var(--jh-accent-2));
-      }
-      footer {
-        margin-top: 16px; font-size: 12px; color: var(--jh-muted);
-      }
-      /* Right panel placeholder so the app mounts cleanly */
-      #root {
-        height: 70vh;
-        min-height: 420px;
-        background: var(--jh-card);
-        border: 1px solid rgba(138, 144, 171, 0.18);
-        border-radius: 16px;
-        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
-      }
-      @media (max-width: 960px) {
-        .row { align-items: flex-start; padding-top: 36px; }
-        #root { height: 60vh; }
-      }
-
-      /* Auth bits (minimal helpers so usable without your external CSS) */
-      .hidden { display: none !important; }
-      .auth-label { display:block; margin-top:10px; font-size: 12px; color: var(--jh-muted); }
-      .auth-input { width:100%; margin-top:6px; }
-      .auth-btn { margin-top:12px; }
-      .auth-msg { font-size:12px; margin-top:8px; }
-      .auth-error { color:#ffb3b3; }
-      .auth-ok { color:#9df0b2; }
-      .auth-toggle { font-size:12px; margin-top:8px; }
-      .auth-toggle .link { cursor:pointer; text-decoration: underline; }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="row">
-        <!-- Left column: brand + feature card + auth -->
-        <div class="one-third column">
-          <div class="brand">
-            <div class="logo" aria-hidden="true"></div>
+<head>
+  <meta charset="utf-8" />
+  <title>JOYHUB</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root{--bg:#0b1020;--card:#151b2f;--text:#e8ecff;--muted:#aab2d6;--accent:#6ae3ff;--accent2:#8b5cf6}
+    *{box-sizing:border-box} html,body{height:100%}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial;background:radial-gradient(1200px 600px at 80% -10%, rgba(107,99,255,.15), transparent),radial-gradient(900px 500px at -10% 20%, rgba(106,227,255,.15), transparent),var(--bg);color:var(--text)}
+    .wrap{max-width:1100px;margin:0 auto;padding:20px}
+    .grid{display:grid;grid-template-columns:340px 1fr;gap:20px}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+    .card{background:rgba(21,27,47,.75);backdrop-filter:blur(6px);border:1px solid rgba(138,144,171,.18);border-radius:16px;padding:16px}
+    h1{margin:0 0 6px 0;font-weight:800}
+    .muted{color:var(--muted);font-size:14px}
+    label{font-size:12px;color:var(--muted)}
+    input,textarea,button,select{width:100%;padding:10px;margin-top:6px;border-radius:10px;border:1px solid rgba(138,144,171,.25);background:#0f1426;color:var(--text)}
+    button{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#07121f;border:none;font-weight:700;cursor:pointer}
+    button[disabled]{opacity:.6;cursor:not-allowed}
+    .row{display:flex;gap:8px;align-items:center}
+    .right{display:flex;flex-direction:column;height:70vh}
+    #list{flex:1;overflow:auto;padding:8px;border-radius:12px;background:#0f1426;border:1px solid rgba(138,144,171,.18)}
+    .msg{margin:8px 0;padding:10px;border-radius:10px;background:#121831}
+    .me{outline:1px solid rgba(106,227,255,.25)}
+    .sys{color:#9df0b2}
+    .pill{display:inline-block;padding:4px 10px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#07121f;font-size:12px;font-weight:700}
+    .link{color:var(--accent);cursor:pointer;text-decoration:underline}
+    .status{font-size:12px;margin-top:6px}
+    .center{display:flex;align-items:center;gap:8px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="grid">
+      <!-- LEFT: Auth + Controls -->
+      <div class="card">
+        <div class="center" style="justify-content:space-between">
+          <div>
             <h1>JOYHUB</h1>
+            <div class="muted">Global chat. Low latency. Zero fuss.</div>
           </div>
-          <p class="tagline">Global chat. Low latency. Zero fuss.</p>
-
-          <div class="card" style="margin-top:16px">
-            <span class="pill">Powered by Durable Objects</span>
-            <p style="margin-top:12px">
-              Each JOYHUB room runs in a single Durable Object—one process in one place—keeping
-              state close to your users for fast, consistent messaging.
-            </p>
-            <ul style="margin-top:8px">
-              <li>Real-time messaging with strong ordering</li>
-              <li>Room state that lives at the edge</li>
-              <li>Auto-scale via Cloudflare’s global network</li>
-            </ul>
-            <!-- (CTA removed per earlier request) -->
-          </div>
-
-          <!-- Auth panel (card) -->
-          <div id="auth" class="card" style="margin-top:16px">
-            <h5 id="form-title" style="margin:0 0 6px 0">Log in</h5>
-
-            <label for="email" class="auth-label">Email</label>
-            <input id="email" type="email" class="auth-input" placeholder="you@example.com" />
-
-            <label for="password" class="auth-label">Password</label>
-            <input id="password" type="password" class="auth-input" placeholder="••••••••" />
-
-            <button id="submit" class="auth-btn">Log in</button>
-            <div class="auth-msg" id="auth-msg"></div>
-
-            <p class="auth-toggle">
-              <span id="toggle-text">No account?</span>
-              <span class="link" id="toggle">Sign up</span>
-            </p>
-          </div>
-
-          <footer>© <span id="y"></span> JOYHUB</footer>
+          <span class="pill">D1 API</span>
         </div>
 
-        <!-- Right column: chat mount -->
-        <div class="two-thirds column" id="app">
-          <div id="root" aria-label="JOYHUB Chat App"></div>
+        <hr style="border:0;border-top:1px solid rgba(138,144,171,.18);margin:14px 0" />
+
+        <div id="auth">
+          <h3 id="authTitle" style="margin:0 0 8px 0">Log in</h3>
+          <label>Email</label>
+          <input id="email" type="email" placeholder="you@example.com" />
+          <label style="margin-top:10px">Password</label>
+          <input id="password" type="password" placeholder="••••••••" />
+          <button id="authBtn" style="margin-top:12px">Log in</button>
+          <div class="status" id="authMsg"></div>
+          <div class="status" style="margin-top:8px">
+            <span id="toggleText">No account?</span>
+            <span class="link" id="toggleLink">Sign up</span>
+          </div>
+        </div>
+
+        <div id="profile" style="display:none">
+          <div class="row" style="justify-content:space-between">
+            <div>
+              <div class="muted">Signed in as</div>
+              <div id="meEmail" style="font-weight:700"></div>
+            </div>
+            <button id="logoutBtn" style="width:auto;padding:8px 12px">Log out</button>
+          </div>
+          <div class="status" id="profileMsg"></div>
+        </div>
+
+        <hr style="border:0;border-top:1px solid rgba(138,144,171,.18);margin:14px 0" />
+
+        <div>
+          <label>Room</label>
+          <div class="row">
+            <input id="room" placeholder="global" />
+            <button id="setRoomBtn" style="width:auto">Join</button>
+          </div>
+          <div class="status">Tip: share the same room name across browsers to chat together.</div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Messages -->
+      <div class="card right">
+        <div id="list"></div>
+        <div class="row" style="margin-top:8px">
+          <input id="username" placeholder="Display name (optional)" />
+          <select id="role" style="max-width:160px">
+            <option value="user" selected>User</option>
+            <option value="assistant">Assistant</option>
+          </select>
+        </div>
+        <div class="row" style="margin-top:8px">
+          <textarea id="text" rows="3" placeholder="Type a message…"></textarea>
+        </div>
+        <div class="row" style="margin-top:8px">
+          <button id="sendBtn">Send</button>
+          <div class="status" id="sendMsg"></div>
         </div>
       </div>
     </div>
+  </div>
 
-    <script>
-      // Footer year
-      document.getElementById('y').textContent = new Date().getFullYear();
+  <script>
+    // ---------- Helpers ----------
+    const $ = (id) => document.getElementById(id);
+    const state = { room: localStorage.getItem("jh_room") || "global", me: null, loading:false };
 
-      // ---- Auth wiring (kept minimal) ----
-      const $ = (id) => document.getElementById(id);
-      const authBox = $('auth');
-      const appBox  = $('app');
-      const msg     = $('auth-msg');
-      const submit  = $('submit');
-      const toggle  = $('toggle');
-      const formTitle = $('form-title');
-      const toggleText = $('toggle-text');
-
-      let mode = 'login'; // or 'signup'
-
-      function setMode(next) {
-        mode = next;
-        formTitle.textContent = mode === 'login' ? 'Log in' : 'Sign up';
-        submit.textContent = mode === 'login' ? 'Log in' : 'Sign up';
-        toggleText.textContent = mode === 'login' ? 'No account?' : 'Have an account?';
-        toggle.textContent = mode === 'login' ? 'Sign up' : 'Log in';
-        msg.textContent = '';
-        msg.className = 'auth-msg';
-      }
-
-      toggle.addEventListener('click', () => setMode(mode === 'login' ? 'signup' : 'login'));
-
-      async function jsonFetch(url, data) {
-        const res = await fetch(url, {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify(data || {})
-        });
-        const txt = await res.text();
-        let body;
-        try { body = txt ? JSON.parse(txt) : {}; } catch { body = { error: txt }; }
-        if (!res.ok) throw new Error(body?.error || res.statusText);
-        return body;
-      }
-
-      async function checkSession() {
-        try {
-          const me = await fetch('/auth/me', { credentials: 'same-origin' });
-          if (me.ok) {
-            const data = await me.json();
-            if (data?.user) {
-              authBox.classList.add('hidden');
-              appBox.classList.remove('hidden');
-              return true;
-            }
-          }
-        } catch {}
-        authBox.classList.remove('hidden');
-        appBox.classList.add('hidden');
-        return false;
-      }
-
-      submit.addEventListener('click', async () => {
-        msg.textContent = '';
-        msg.className = 'auth-msg';
-        const email = $('email').value.trim();
-        const password = $('password').value;
-
-        if (!email || !password) {
-          msg.textContent = 'Please enter email and password.';
-          msg.classList.add('auth-error');
-          return;
-        }
-
-        try {
-          if (mode === 'signup') {
-            await jsonFetch('/auth/signup', { email, password });
-          } else {
-            await jsonFetch('/auth/login', { email, password });
-          }
-          msg.textContent = 'Success.';
-          msg.classList.add('auth-ok');
-          await checkSession();
-        } catch (e) {
-          msg.textContent = e.message || 'Request failed.';
-          msg.classList.add('auth-error');
-        }
+    function setLoading(btn, yes) {
+      state.loading = !!yes;
+      btn.disabled = yes;
+      btn.textContent = yes ? "Please wait…" : btn.dataset.label;
+    }
+    async function jget(url) {
+      const r = await fetch(url, { credentials: "include" });
+      const t = await r.text(); try { return JSON.parse(t); } catch { return { error: t }; }
+    }
+    async function jpost(url, body) {
+      const r = await fetch(url, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(body || {})
       });
+      const t = await r.text(); let data; try { data = JSON.parse(t); } catch { data = { error: t }; }
+      if (!r.ok) throw Object.assign(new Error(data.error || r.statusText), { status:r.status, data });
+      return data;
+    }
+    function escapeHTML(s){return s.replace(/[&<>"']/g,m=>({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[m]))}
 
-      // On load, show app if already logged in
-      checkSession();
-    </script>
-  </body>
+    // ---------- Auth UI ----------
+    const auth = $("auth"), profile = $("profile");
+    const authTitle = $("authTitle"), authBtn = $("authBtn"), authMsg = $("authMsg");
+    const toggleText = $("toggleText"), toggleLink = $("toggleLink");
+    const meEmail = $("meEmail"), profileMsg = $("profileMsg");
+    let mode = "login";
+    authBtn.dataset.label = "Log in";
+    function setMode(next){
+      mode = next;
+      authTitle.textContent = mode === "login" ? "Log in" : "Sign up";
+      authBtn.textContent = authBtn.dataset.label = mode === "login" ? "Log in" : "Sign up";
+      toggleText.textContent = mode === "login" ? "No account?" : "Have an account?";
+      toggleLink.textContent = mode === "login" ? "Sign up" : "Log in";
+      authMsg.textContent = "";
+    }
+    toggleLink.onclick = () => setMode(mode === "login" ? "signup" : "login");
+
+    async function refreshMe() {
+      const { user } = await jget("/auth/me");
+      state.me = user || null;
+      if (state.me) {
+        meEmail.textContent = state.me.email;
+        auth.style.display = "none";
+        profile.style.display = "block";
+      } else {
+        auth.style.display = "block";
+        profile.style.display = "none";
+      }
+    }
+
+    $("logoutBtn").onclick = async () => {
+      profileMsg.textContent = ""; setLoading($("logoutBtn"), true);
+      try { await jpost("/auth/logout"); await refreshMe(); profileMsg.textContent = "Logged out."; }
+      catch(e){ profileMsg.textContent = e.message || "Logout failed"; }
+      finally { setLoading($("logoutBtn"), false); }
+    };
+
+    $("authBtn").onclick = async () => {
+      const email = $("email").value.trim(), password = $("password").value;
+      if (!email || !password){ authMsg.textContent = "Please enter email & password."; return; }
+      authMsg.textContent = ""; setLoading(authBtn, true);
+      try {
+        if (mode === "signup") await jpost("/auth/signup", { email, password });
+        else await jpost("/auth/login", { email, password });
+        await refreshMe(); authMsg.textContent = "Success.";
+      } catch(e){ authMsg.textContent = e.message || "Request failed"; }
+      finally { setLoading(authBtn, false); }
+    };
+
+    // ---------- Room + Messages ----------
+    const roomInput = $("room"); const list = $("list");
+    roomInput.value = state.room;
+    $("setRoomBtn").dataset.label = "Join";
+    $("setRoomBtn").onclick = async () => {
+      state.room = roomInput.value.trim() || "global";
+      localStorage.setItem("jh_room", state.room);
+      await loadMessages();
+    };
+
+    async function loadMessages() {
+      list.innerHTML = `<div class="muted">Loading messages for <b>${escapeHTML(state.room)}</b>…</div>`;
+      const res = await jget(`/api/messages?room=${encodeURIComponent(state.room)}`);
+      const msgs = res.messages || [];
+      list.innerHTML = msgs.map(m => renderMsg(m, state.me)).join("") || `<div class="muted">No messages yet.</div>`;
+      list.scrollTop = list.scrollHeight;
+    }
+    function renderMsg(m, me){
+      const isMe = me && me.email && (m.user === me.email || m.user === meEmail.textContent);
+      const who = escapeHTML(m.user);
+      const body = escapeHTML(m.content);
+      const ts = new Date(m.created_at || Date.now()).toLocaleTimeString();
+      const cls = ["msg", isMe ? "me" : "", m.role === "assistant" ? "sys" : ""].join(" ");
+      return `<div class="${cls}"><div style="font-size:12px;color:var(--muted)">${who} • ${ts}</div><div>${body}</div></div>`;
+    }
+
+    // ---------- Send ----------
+    const sendBtn = $("sendBtn"); sendBtn.dataset.label = "Send";
+    $("sendBtn").onclick = send;
+    $("text").addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) send();
+    });
+    async function send() {
+      const content = $("text").value.trim();
+      if (!content) return;
+      const user = $("username").value.trim() || (state.me ? state.me.email : "anonymous");
+      const role = $("role").value || "user";
+      $("sendMsg").textContent = ""; setLoading(sendBtn, true);
+      try {
+        await jpost("/api/messages", { room: state.room, user, role, content });
+        $("text").value = "";
+        await loadMessages();
+      } catch(e){ $("sendMsg").textContent = e.message || "Send failed"; }
+      finally { setLoading(sendBtn, false); }
+    }
+
+    // ---------- Boot ----------
+    (async () => { await refreshMe(); await loadMessages(); })();
+  </script>
+</body>
 </html>
