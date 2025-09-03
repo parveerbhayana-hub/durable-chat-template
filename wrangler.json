@@ -1,5 +1,5 @@
 {
-  "name": "durable-chat-template",
+  "name": "joyhub",
   "main": "src/server/index.ts",
   "compatibility_date": "2025-04-01",
 
